@@ -1,7 +1,7 @@
 /*
- * pus_services_iface_v1.h
+ * pus_service4.h
  *
- *  Created on: Oct 26, 2024
+ *  Created on: Nov 20, 2024
  *      Author: Oscar Rodriguez Polo
  */
 
@@ -24,44 +24,46 @@
  *
  ****************************************************************************/
 
+#ifndef SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE4_INCLUDE_PUS_SERVICE4_H_
+#define SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE4_INCLUDE_PUS_SERVICE4_H_
 
-#ifndef PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
-#define PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
 
 
 #include "public/config.h"
 #include "public/basic_types.h"
-#include "public/serialize.h"
-#include "public/cdtchandler_iface_v1.h"
-#include "public/cdtcmemdescriptor_iface_v1.h"
 
-
-#include "public/tc_rate_ctrl.h"
-
-#include "public/pus_service1.h"
-#include "public/pus_service3.h"
-#include "public/pus_service4.h"
-#include "public/pus_service17.h"
-#include "public/pus_service20.h"
+#include "public/pus_tc_handler.h"
+#include "public/pus_tm_handler.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-//Start up
-void pus_services_startup();
 
-//Reboot
-void pus_services_mng_reboot();
+#define PUS_SERVICE4_MAX_NUM_OF_STATS 4
 
+/**
+ * \brief service 4 startup
+ */
 
-//Do FDIR
-void pus_services_do_FDIR();
+void pus_service4_startup();
 
-//Update Params
-void pus_services_update_params();
+/**
+ * \brief update all stats
+ */
+void pus_service4_update_all_stats();
+
+/**
+ * \brief executes a TC[4,X] telecommand
+ * \param ptc_handler pointer to the tc handler
+ */
+void pus_service4_exec_tc(tc_handler_t *ptc_handler);
+
 
 #ifdef __cplusplus
 }
 #endif
-#endif // PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
+
+
+
+#endif /* SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE4_INCLUDE_PUS_SERVICE4_H_ */

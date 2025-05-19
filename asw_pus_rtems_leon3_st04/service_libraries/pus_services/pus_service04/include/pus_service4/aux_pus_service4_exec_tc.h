@@ -1,7 +1,7 @@
 /*
- * pus_services_iface_v1.h
+ * aux_pus_service4_tc_exec.h
  *
- *  Created on: Oct 26, 2024
+ *  Created on: Nov 21, 2024
  *      Author: Oscar Rodriguez Polo
  */
 
@@ -25,43 +25,40 @@
  ****************************************************************************/
 
 
-#ifndef PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
-#define PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
+#ifndef SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE04_INCLUDE_PUS_SERVICE4_AUX_PUS_SERVICE4_EXEC_TC_H_
+#define SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE04_INCLUDE_PUS_SERVICE4_AUX_PUS_SERVICE4_EXEC_TC_H_
 
 
 #include "public/config.h"
-#include "public/basic_types.h"
-#include "public/serialize.h"
-#include "public/cdtchandler_iface_v1.h"
-#include "public/cdtcmemdescriptor_iface_v1.h"
-
-
-#include "public/tc_rate_ctrl.h"
-
-#include "public/pus_service1.h"
-#include "public/pus_service3.h"
-#include "public/pus_service4.h"
-#include "public/pus_service17.h"
-#include "public/pus_service20.h"
+#include <public/pus_tc_handler.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-//Start up
-void pus_services_startup();
+/**
+ * \brief executes a TC[4,1] telecommand
+ * \param ptc_handler pointer to the tc handler
+ */
+void pus_service4_exec_TC_4_1(tc_handler_t *ptc_handler);
 
-//Reboot
-void pus_services_mng_reboot();
+/**
+ * \brief executes a TC[4,6] telecommand
+ * \param ptc_handler pointer to the tc handler
+ */
+void pus_service4_exec_TC_4_6(tc_handler_t *ptc_handler);
 
-
-//Do FDIR
-void pus_services_do_FDIR();
-
-//Update Params
-void pus_services_update_params();
+/**
+ * \brief executes a TC[4,7] telecommand
+ * \param ptc_handler pointer to the tc handler
+ */
+void pus_service4_exec_TC_4_7(tc_handler_t *ptc_handler);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // PUBLIC__ICUASW_PUS_SERVICES_IFACE_V1_H
+
+
+
+
+#endif /* SERVICE_LIBRARIES_PUS_SERVICES_PUS_SERVICE04_INCLUDE_PUS_SERVICE4_AUX_PUS_SERVICE4_EXEC_TC_H_ */
