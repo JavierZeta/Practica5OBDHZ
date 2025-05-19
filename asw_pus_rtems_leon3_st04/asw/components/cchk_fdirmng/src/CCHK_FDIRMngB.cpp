@@ -70,6 +70,9 @@ VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec
 time=VNextTimeout; 
  
 pus_services_update_params();
+
+pus_service4_update_all_stats();
+
 pus_service3_do_HK();
    //Program absolute timer 
    HK_FDIRTimer.InformAt( time ); 

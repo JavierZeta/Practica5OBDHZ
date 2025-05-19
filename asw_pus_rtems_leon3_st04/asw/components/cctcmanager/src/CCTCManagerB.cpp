@@ -19,7 +19,7 @@ CCTCManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCTCManager &act,
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
-	BKGTCExeCtrl(EDROOMcomponent.BKGTCExeCtrl),
+	BKGExecCtrl(EDROOMcomponent.BKGExecCtrl),
 	HK_FDIRCtrl(EDROOMcomponent.HK_FDIRCtrl),
 	RxTC(EDROOMcomponent.RxTC),
 	VAcceptReport(EDROOMpVarVAcceptReport),
@@ -34,7 +34,7 @@ CCTCManager::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
-	BKGTCExeCtrl(context.BKGTCExeCtrl),
+	BKGExecCtrl(context.BKGExecCtrl),
 	HK_FDIRCtrl(context.HK_FDIRCtrl),
 	RxTC(context.RxTC),
 	VAcceptReport(context.VAcceptReport),
@@ -71,6 +71,16 @@ bool CCTCManager::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
 
 	// User-defined Functions   ****************************
 
+void	CCTCManager::EDROOM_CTX_Top_0::nousar
+
+{
+
+return VTCExecCtrl.IsBKGTC();
+
+}
+
+
+
 void	CCTCManager::EDROOM_CTX_Top_0::FExecTC()
 
 {
@@ -85,13 +95,13 @@ void	CCTCManager::EDROOM_CTX_Top_0::FFwdBKGTC()
 
 {
    //Allocate data from pool
-  CDTCHandler * pSBKGTC_Data = EDROOMPoolCDTCHandler.AllocData();
+  CDTCHandler * p SBKGTC_Data = EDROOMPoolCDTCHandler.AllocData();
 	
 		// Complete Data 
 	
-	*pSBKGTC_Data=VCurrentTC;
+	*p SBKGTC_Data=VCurrentTC;  
    //Send message 
-   BKGTCExeCtrl.send(SBKGTC,pSBKGTC_Data,&EDROOMPoolCDTCHandler); 
+   BKGExecCtrl.send( SBKGTC,p SBKGTC_Data,&EDROOMPoolCDTCHandler); 
 }
 
 
@@ -202,9 +212,7 @@ bool	CCTCManager::EDROOM_CTX_Top_0::GFwdToBKG()
 
 {
 
- 
- 
-   return VTCExecCtrl.IsBKGTC();
+ return VTCExecCtrl.IsBKGTC();
 
 }
 
@@ -293,8 +301,12 @@ void CCTCManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 
 			//Next Transition is Init
 			case (Init):
+				//Msg->Data Handling 
 				//Execute Action 
 				FInit();
+				//Send Asynchronous Message 
+				//Invoke Synchronous Message 
+				//MsgBack->Data Handling 
 				//Next State is Ready
 				edroomNextState = Ready;
 				break;
@@ -303,6 +315,10 @@ void CCTCManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 
 				//Msg->Data Handling 
 				FGetTC();
+				//Execute Action 
+				//Send Asynchronous Message 
+				//Invoke Synchronous Message 
+				//MsgBack->Data Handling 
 				//Evaluate Branch Accepted
 				if( GAcceptTC() )
 				{
@@ -333,8 +349,12 @@ void CCTCManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 			//To Choice Point HandleTC
 			case (HandleTC):
 
+				//Msg->Data Handling 
 				//Execute Action 
 				FTCExecCtrl();
+				//Send Asynchronous Message 
+				//Invoke Synchronous Message 
+				//MsgBack->Data Handling 
 				//Evaluate Branch ToReboot
 				if( GToReboot() )
 				{
@@ -361,15 +381,15 @@ void CCTCManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					//Next State is Ready
 					edroomNextState = Ready;
 				 } 
-				//Evaluate Branch FwdToBKG
+				//Evaluate Branch FwdBKGTC
 				else if( GFwdToBKG() )
 				{
 					//Send Asynchronous Message 
 					FFwdBKGTC();
 
-					//Branch taken is HandleTC_FwdToBKG
+					//Branch taken is HandleTC_FwdBKGTC
 					edroomCurrentTrans.localId =
-						HandleTC_FwdToBKG;
+						HandleTC_FwdBKGTC;
 
 					//Next State is Ready
 					edroomNextState = Ready;
@@ -396,28 +416,43 @@ void CCTCManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 
 				//Go to the state I
 			case (I):
+				//Execute Entry Action 
+				//Send Asynchronous Message at Entry
 				//Arrival to state I
 				edroomCurrentTrans=EDROOMIArrival();
+				//Execute Exit Action 
+				//Send Asynchronous Message at Exit
 				break;
 
 				//Go to the state Ready
 			case (Ready):
+				//Execute Entry Action 
+				//Send Asynchronous Message at Entry
 				//Arrival to state Ready
 				edroomCurrentTrans=EDROOMReadyArrival();
+				//Execute Exit Action 
+				//Send Asynchronous Message at Exit
 				break;
 
 				//Go to the state Reboot
 			case (Reboot):
 				//Execute Entry Action 
 				FReboot();
+				//Send Asynchronous Message at Entry
 				//Arrival to state Reboot
 				edroomCurrentTrans=EDROOMRebootArrival();
+				//Execute Exit Action 
+				//Send Asynchronous Message at Exit
 				break;
 
 				//Go to the join point ValidTC
 			case (ValidTC):
+				//Execute Entry Action 
+				//Send Asynchronous Message at Entry
 				//Arrival to join point ValidTC
 				edroomCurrentTrans=EDROOMValidTCArrival();
+				//Execute Exit Action 
+				//Send Asynchronous Message at Exit
 				break;
 
 		}

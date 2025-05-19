@@ -85,8 +85,8 @@ class CEDROOMSystemCommSAP{
  
 //Signal Conversion
  
-	static TEDROOMSignal C4BKGTCExec_PBKGTCExeCtrl__C2TCManager_PBKGTCExeCtrl(TEDROOMSignal signal);
-	static TEDROOMSignal C2TCManager_PBKGTCExeCtrl__C4BKGTCExec_PBKGTCExeCtrl(TEDROOMSignal signal);
+	static TEDROOMSignal C2TCManager_PBKGExecCtrl__C4BKGTCExec_PBKGExecCtrl(TEDROOMSignal signal);
+	static TEDROOMSignal C4BKGTCExec_PBKGExecCtrl__C2TCManager_PBKGExecCtrl(TEDROOMSignal signal);
  
 //Signal Conversion
  

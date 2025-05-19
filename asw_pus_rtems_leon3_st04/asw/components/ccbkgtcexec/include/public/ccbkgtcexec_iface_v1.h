@@ -29,7 +29,7 @@ public:
 	 */
 	 enum TEDROOMCCBKGTCExecSignal { EDROOMSignalTimeout, 
 							EDROOMSignalDestroy, 
-							SBKGTC };
+							 SBKGTC };
 
 	/**
 	 * \class CCBKGTCExec::CEDROOMMemory
@@ -70,8 +70,8 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
-	//! BKGTCExeCtrl Component Port
-	CEDROOMInterface	BKGTCExeCtrl;
+	//! BKGExecCtrl Component Port
+	CEDROOMInterface	BKGExecCtrl;
 
 
 
@@ -140,7 +140,7 @@ public:
 	 */
 	enum TEDROOMCCBKGTCExecSignal { EDROOMSignalTimeout,
 		EDROOMSignalDestroy,
-		SBKGTC };
+		 SBKGTC };
 
 
 		friend class CCBKGTCExec;
@@ -155,7 +155,7 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
-		CEDROOMInterface & BKGTCExeCtrl;
+		CEDROOMInterface & BKGExecCtrl;
 
 
 		//! State Identifiers
